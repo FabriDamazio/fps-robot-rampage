@@ -6,10 +6,12 @@ public partial class Player : CharacterBody3D
     public const float JumpVelocity = 4.5f;
 
     private Vector2 _mouseMotion = Vector2.Zero;
+    private Node3D _cameraPivot;
 
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
+        _cameraPivot = GetNode<Node3D>("%CameraPivot");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -70,6 +72,13 @@ public partial class Player : CharacterBody3D
     private void HandleCameraRotation()
     {
         RotateY(_mouseMotion.X);
+        _cameraPivot.RotateX(_mouseMotion.Y);
         _mouseMotion = Vector2.Zero;
+        _cameraPivot.RotationDegrees =
+          new Vector3(
+            Mathf.Clamp(_cameraPivot.RotationDegrees.X, -90.0f, 90.0f),
+           _cameraPivot.RotationDegrees.Y,
+           _cameraPivot.RotationDegrees.Z
+          );
     }
 }
