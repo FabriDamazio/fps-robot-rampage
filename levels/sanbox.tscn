@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dckl06bgivflg"]
+[gd_scene load_steps=7 format=3 uid="uid://dckl06bgivflg"]
 
 [ext_resource type="PackedScene" uid="uid://dxovfxwf4hubv" path="res://player/player.tscn" id="1_6o86d"]
 
@@ -15,6 +15,12 @@ sky = SubResource("Sky_6o86d")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6o86d"]
+albedo_color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjkj5"]
+albedo_color = Color(0.874742, 0.535355, 0.236611, 1)
+
 [node name="SandBox" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -28,6 +34,42 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(64, 1, 64)
+material = SubResource("StandardMaterial3D_6o86d")
 
 [node name="Player" parent="." instance=ExtResource("1_6o86d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Plataform" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.60386)
+use_collision = true
+material = SubResource("StandardMaterial3D_pjkj5")
+
+[node name="Plataform2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -3.604)
+use_collision = true
+material = SubResource("StandardMaterial3D_pjkj5")
+
+[node name="Plataform5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -4.599)
+use_collision = true
+material = SubResource("StandardMaterial3D_pjkj5")
+
+[node name="Plataform3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, -3.604)
+use_collision = true
+material = SubResource("StandardMaterial3D_pjkj5")
+
+[node name="Plataform4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, -4.605)
+use_collision = true
+material = SubResource("StandardMaterial3D_pjkj5")
+
+[node name="Plataform6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37003, 0.5, -3.604)
+use_collision = true
+material = SubResource("StandardMaterial3D_pjkj5")
+
+[node name="Plataform7" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37003, 0.5, -4.599)
+use_collision = true
+material = SubResource("StandardMaterial3D_pjkj5")

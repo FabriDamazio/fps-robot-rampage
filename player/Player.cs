@@ -3,10 +3,13 @@ using Godot;
 public partial class Player : CharacterBody3D
 {
     public const float Speed = 5.0f;
-    public const float JumpVelocity = 4.5f;
+
+    [Export]
+    public float JumpHeight = 1.0f;
 
     private Vector2 _mouseMotion = Vector2.Zero;
     private Node3D _cameraPivot;
+    private float _gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
     public override void _Ready()
     {
@@ -28,7 +31,8 @@ public partial class Player : CharacterBody3D
         // Handle Jump.
         if (Input.IsActionJustPressed("jump") && IsOnFloor())
         {
-            velocity.Y = JumpVelocity;
+            GD.Print(_gravity);
+            velocity.Y = Mathf.Sqrt(JumpHeight * 2.0f * _gravity);
         }
 
         // Get the input direction and handle the movement/deceleration.
