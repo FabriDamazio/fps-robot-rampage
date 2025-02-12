@@ -1,0 +1,49 @@
+using Godot;
+
+public partial class HitscanWeapon : Node3D
+{
+    [Export]
+    public float FireRate = 14.0f;
+
+    [Export]
+    public float Recoil = 0.05f;
+
+    [Export]
+    public Node3D WeaponMesh;
+
+    private Timer _cooldownTimer;
+    private Vector3 _weaponPosition;
+    private RayCast3D _rayCast3D;
+
+    public override void _Ready()
+    {
+        _cooldownTimer = GetNode<Timer>("%CooldownTimer");
+        _weaponPosition = WeaponMesh.Position;
+        _rayCast3D = GetNode<RayCast3D>("%RayCast3D");
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionPressed("fire"))
+        {
+            if (_cooldownTimer.IsStopped())
+            {
+                Shoot();
+            }
+        }
+
+        WeaponMesh.Position = WeaponMesh.Position.Lerp(_weaponPosition, (float)delta * 10);
+    }
+
+    public void Shoot()
+    {
+
+        _cooldownTimer.Start(1.0f / FireRate);
+        GD.Print("Weapon Fired");
+
+        WeaponMesh.Position =
+          new Vector3(WeaponMesh.Position.X, WeaponMesh.Position.Y, WeaponMesh.Position.Z + Recoil);
+
+        GD.Print(_rayCast3D.GetCollider());
+    }
+}
