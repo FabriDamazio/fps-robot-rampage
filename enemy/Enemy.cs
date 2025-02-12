@@ -7,6 +7,8 @@ public partial class Enemy : CharacterBody3D
 
     private NavigationAgent3D _navigationAgent3D;
     private Player _player;
+    private bool _provoked = false;
+    private float _aggroRange = 12.0f;
 
     public override void _Ready()
     {
@@ -14,9 +16,14 @@ public partial class Enemy : CharacterBody3D
         _navigationAgent3D = GetNode<NavigationAgent3D>("%NavigationAgent3D");
     }
 
+    public override void _Process(double delta)
+    {
+        if (_provoked)
+            _navigationAgent3D.TargetPosition = _player.GlobalPosition;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
-        _navigationAgent3D.TargetPosition = _player.GlobalPosition;
         Vector3 nextPosition = _navigationAgent3D.GetNextPathPosition();
 
         Vector3 velocity = Velocity;
@@ -26,16 +33,12 @@ public partial class Enemy : CharacterBody3D
             velocity += GetGravity() * (float)delta;
         }
 
-        // Handle Jump.
-        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-        {
-            velocity.Y = JumpVelocity;
-        }
+        var direction = GlobalPosition.DirectionTo(nextPosition);
+        var distance = GlobalPosition.DistanceTo(_player.GlobalPosition);
 
-        // Get the input direction and handle the movement/deceleration.
-        // As good practice, you should replace UI actions with custom gameplay actions.
-        Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+        if (distance <= _aggroRange)
+            _provoked = true;
+
         if (direction != Vector3.Zero)
         {
             velocity.X = direction.X * Speed;
@@ -48,6 +51,6 @@ public partial class Enemy : CharacterBody3D
         }
 
         Velocity = velocity;
-        //MoveAndSlide();
+        MoveAndSlide();
     }
 }
