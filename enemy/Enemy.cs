@@ -5,15 +5,20 @@ public partial class Enemy : CharacterBody3D
     public const float Speed = 5.0f;
     public const float JumpVelocity = 4.5f;
 
+    [Export]
+    public float AttackRange = 1.5f;
+
     private NavigationAgent3D _navigationAgent3D;
     private Player _player;
     private bool _provoked = false;
     private float _aggroRange = 12.0f;
+    private AnimationPlayer _animationPlayer;
 
     public override void _Ready()
     {
         _player = GetTree().GetFirstNodeInGroup("player") as Player;
         _navigationAgent3D = GetNode<NavigationAgent3D>("%NavigationAgent3D");
+        _animationPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
     }
 
     public override void _Process(double delta)
@@ -39,8 +44,12 @@ public partial class Enemy : CharacterBody3D
         if (distance <= _aggroRange)
             _provoked = true;
 
+        if (_provoked && distance <= AttackRange)
+            _animationPlayer.Play("attack");
+
         if (direction != Vector3.Zero)
         {
+            LookAtTarget(direction);
             velocity.X = direction.X * Speed;
             velocity.Z = direction.Z * Speed;
         }
@@ -52,5 +61,16 @@ public partial class Enemy : CharacterBody3D
 
         Velocity = velocity;
         MoveAndSlide();
+    }
+
+    private void LookAtTarget(Vector3 direction)
+    {
+        var adjustedDirection = new Vector3(direction.X, 0.0f, direction.Z);
+        LookAt(GlobalPosition + adjustedDirection, Vector3.Up, true);
+    }
+
+    public void Attack()
+    {
+        GD.Print("Enemy Attack");
     }
 }
