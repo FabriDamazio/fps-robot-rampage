@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bd8j3idieoxvi"]
+[gd_scene load_steps=3 format=3 uid="uid://bd8j3idieoxvi"]
 
 [ext_resource type="Script" uid="uid://cjrwea7vmkylb" path="res://weapons/HitscanWeapon.cs" id="1_24x21"]
+[ext_resource type="PackedScene" uid="uid://drfx0jkmvu4yq" path="res://weapons/spark.tscn" id="2_nnki3"]
 
 [node name="HitscanWeapon" type="Node3D"]
 script = ExtResource("1_24x21")
+Spark = ExtResource("2_nnki3")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 unique_name_in_owner = true

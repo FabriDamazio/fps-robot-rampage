@@ -17,6 +17,9 @@ public partial class HitscanWeapon : Node3D
     [Export]
     public int WeaponDamage = 15;
 
+    [Export]
+    public PackedScene Spark;
+
     private Timer _cooldownTimer;
     private Vector3 _weaponPosition;
     private RayCast3D _rayCast3D;
@@ -51,12 +54,15 @@ public partial class HitscanWeapon : Node3D
         WeaponMesh.Position =
           new Vector3(WeaponMesh.Position.X, WeaponMesh.Position.Y, WeaponMesh.Position.Z + Recoil);
         var collider = _rayCast3D.GetCollider();
-        GD.Print(collider);
 
         if (collider is Enemy)
         {
             var enemy = collider as Enemy;
             enemy.SetHitPoints(enemy.HitPoints - WeaponDamage);
         }
+
+        var spark = Spark.Instantiate<Node3D>();
+        AddChild(spark);
+        spark.GlobalPosition = _rayCast3D.GetCollisionPoint();
     }
 }
