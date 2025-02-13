@@ -7,6 +7,11 @@ public partial class Player : CharacterBody3D
     [Export]
     public float JumpHeight = 1.0f;
 
+    [Export]
+    public int MaxHitPoins = 100;
+
+    public int HitPoints;
+
     private Vector2 _mouseMotion = Vector2.Zero;
     private Node3D _cameraPivot;
     private float _gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
@@ -15,6 +20,7 @@ public partial class Player : CharacterBody3D
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
         _cameraPivot = GetNode<Node3D>("%CameraPivot");
+        HitPoints = MaxHitPoins;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -71,6 +77,17 @@ public partial class Player : CharacterBody3D
             Input.MouseMode = Input.MouseModeEnum.Visible;
         }
 
+    }
+
+    public void SetHitPoints(int value)
+    {
+        HitPoints = value;
+        GD.Print(HitPoints);
+
+        if (HitPoints <= 0)
+        {
+            GetTree().Quit();
+        }
     }
 
     private void HandleCameraRotation()

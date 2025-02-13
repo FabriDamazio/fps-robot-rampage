@@ -8,6 +8,14 @@ public partial class Enemy : CharacterBody3D
     [Export]
     public float AttackRange = 1.5f;
 
+    [Export]
+    public int MaxHitPoints = 100;
+
+    [Export]
+    public int AttackDamage = 20;
+
+    public int HitPoints;
+
     private NavigationAgent3D _navigationAgent3D;
     private Player _player;
     private bool _provoked = false;
@@ -19,6 +27,7 @@ public partial class Enemy : CharacterBody3D
         _player = GetTree().GetFirstNodeInGroup("player") as Player;
         _navigationAgent3D = GetNode<NavigationAgent3D>("%NavigationAgent3D");
         _animationPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
+        HitPoints = MaxHitPoints;
     }
 
     public override void _Process(double delta)
@@ -72,5 +81,19 @@ public partial class Enemy : CharacterBody3D
     public void Attack()
     {
         GD.Print("Enemy Attack");
+        _player.SetHitPoints(_player.HitPoints - AttackDamage);
+
+    }
+
+    public void SetHitPoints(int value)
+    {
+        HitPoints = value;
+
+        if (HitPoints <= 0)
+        {
+            QueueFree();
+        }
+
+        _provoked = true;
     }
 }
