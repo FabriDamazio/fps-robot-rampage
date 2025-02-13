@@ -12,6 +12,9 @@ public partial class HitscanWeapon : Node3D
     public Node3D WeaponMesh;
 
     [Export]
+    public GpuParticles3D MuzzleFlash;
+
+    [Export]
     public int WeaponDamage = 15;
 
     private Timer _cooldownTimer;
@@ -40,6 +43,7 @@ public partial class HitscanWeapon : Node3D
 
     public void Shoot()
     {
+        MuzzleFlash.Restart();
 
         _cooldownTimer.Start(1.0f / FireRate);
         GD.Print("Weapon Fired");
@@ -49,10 +53,10 @@ public partial class HitscanWeapon : Node3D
         var collider = _rayCast3D.GetCollider();
         GD.Print(collider);
 
-        if(collider is Enemy)
+        if (collider is Enemy)
         {
-          var enemy = collider as Enemy;
-          enemy.SetHitPoints(enemy.HitPoints - WeaponDamage);
+            var enemy = collider as Enemy;
+            enemy.SetHitPoints(enemy.HitPoints - WeaponDamage);
         }
     }
 }

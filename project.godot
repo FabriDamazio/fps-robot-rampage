@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Robot Rampage"
 
+[editor]
+
+movie_writer/movie_file="/home/fabri/Videos/Screencasts/fps.avi"
+
 [input]
 
 move_forward={
