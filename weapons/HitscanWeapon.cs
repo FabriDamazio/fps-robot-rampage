@@ -20,6 +20,9 @@ public partial class HitscanWeapon : Node3D
     [Export]
     public PackedScene Spark;
 
+    [Export]
+    public bool Automatic = false;
+
     private Timer _cooldownTimer;
     private Vector3 _weaponPosition;
     private RayCast3D _rayCast3D;
@@ -33,11 +36,24 @@ public partial class HitscanWeapon : Node3D
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionPressed("fire"))
+        if (Automatic)
         {
-            if (_cooldownTimer.IsStopped())
+            if (Input.IsActionPressed("fire"))
             {
-                Shoot();
+                if (_cooldownTimer.IsStopped())
+                {
+                    Shoot();
+                }
+            }
+        }
+        else
+        {
+            if (Input.IsActionJustPressed("fire"))
+            {
+                if (_cooldownTimer.IsStopped())
+                {
+                    Shoot();
+                }
             }
         }
 

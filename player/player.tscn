@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxovfxwf4hubv"]
+[gd_scene load_steps=14 format=3 uid="uid://dxovfxwf4hubv"]
 
 [ext_resource type="Script" uid="uid://dogljjne1hybc" path="res://player/Player.cs" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://duiu7pe1qgla4" path="res://player/SmoothCamera.cs" id="2_rkbax"]
+[ext_resource type="PackedScene" uid="uid://b1aldv0cy7xc8" path="res://weapons/rifle.tscn" id="3_boad6"]
 [ext_resource type="Script" uid="uid://cpg0lt4w1q6sa" path="res://player/Crosshair.cs" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://bxlosg6ich7eb" path="res://player/WeaponHandler.cs" id="3_rgyib"]
 [ext_resource type="PackedScene" uid="uid://ba1tnddjydcea" path="res://weapons/smg.tscn" id="3_yw30f"]
 [ext_resource type="Texture2D" uid="uid://7srht0t0rbyo" path="res://player/damage.png" id="5_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://bdf0neu83fmmc" path="res://player/game_over_menu.tscn" id="6_g6k8r"]
@@ -91,8 +93,6 @@ top_level = true
 cull_mask = 1048573
 script = ExtResource("2_rkbax")
 
-[node name="SMG" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_yw30f")]
-
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
 
@@ -115,12 +115,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 cull_mask = 2
 fov = 40.0
 
+[node name="WeaponHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("Weapon1", "Weapon2")]
+script = ExtResource("3_rgyib")
+Weapon1 = NodePath("Rifle")
+Weapon2 = NodePath("SMG")
+
+[node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("3_boad6")]
+
+[node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("3_yw30f")]
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
@@ -134,6 +144,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(576, 324)
+mouse_filter = 2
 texture = ExtResource("5_qjkh3")
 
 [node name="DamageAnimationPlayer" type="AnimationPlayer" parent="DamageTexture"]
