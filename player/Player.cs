@@ -14,13 +14,17 @@ public partial class Player : CharacterBody3D
 
     private Vector2 _mouseMotion = Vector2.Zero;
     private Node3D _cameraPivot;
+    private AnimationPlayer _damageAnimationPlayer;
+    private GameOverMenu _gameOverMenu;
     private float _gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
         _cameraPivot = GetNode<Node3D>("%CameraPivot");
+        _damageAnimationPlayer = GetNode<AnimationPlayer>("%DamageAnimationPlayer");
         HitPoints = MaxHitPoins;
+        _gameOverMenu = GetNode<GameOverMenu>("%GameOverMenu");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -81,12 +85,17 @@ public partial class Player : CharacterBody3D
 
     public void SetHitPoints(int value)
     {
+        if (value < HitPoints)
+        {
+            _damageAnimationPlayer.Stop(false);
+            _damageAnimationPlayer.Play("take_damage");
+        }
         HitPoints = value;
         GD.Print(HitPoints);
 
         if (HitPoints <= 0)
         {
-            GetTree().Quit();
+          _gameOverMenu.GameOver();
         }
     }
 
