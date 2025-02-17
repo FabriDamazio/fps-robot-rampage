@@ -10,6 +10,8 @@ public partial class Player : CharacterBody3D
     [Export]
     public int MaxHitPoins = 100;
 
+    public AmmoHandler AmmoHandler;
+
     public int HitPoints;
 
     private Vector2 _mouseMotion = Vector2.Zero;
@@ -25,6 +27,7 @@ public partial class Player : CharacterBody3D
         _damageAnimationPlayer = GetNode<AnimationPlayer>("%DamageAnimationPlayer");
         HitPoints = MaxHitPoins;
         _gameOverMenu = GetNode<GameOverMenu>("%GameOverMenu");
+        AmmoHandler = GetNode<AmmoHandler>("%AmmoHandler");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -95,7 +98,7 @@ public partial class Player : CharacterBody3D
 
         if (HitPoints <= 0)
         {
-          _gameOverMenu.GameOver();
+            _gameOverMenu.GameOver();
         }
     }
 

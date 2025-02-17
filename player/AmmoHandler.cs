@@ -7,7 +7,7 @@ public partial class AmmoHandler : Node
     public Label AmmoLabel;
 
     public Dictionary<AmmoType, int> AmmoStorage =
-      new Dictionary<AmmoType, int> {{AmmoType.BULLET, 10}, {AmmoType.SMALL_BULLET, 60}};
+      new Dictionary<AmmoType, int> { { AmmoType.BULLET, 10 }, { AmmoType.SMALL_BULLET, 60 } };
 
     public override void _Ready()
     {
@@ -29,9 +29,15 @@ public partial class AmmoHandler : Node
 
     public void UpdateAmmoLabel(AmmoType type)
     {
-      GD.Print(type);
         AmmoLabel.Text = AmmoStorage[type].ToString();
     }
+
+    public void AddAmmo(AmmoType type, int amount)
+    {
+        AmmoStorage[type] += amount;
+        UpdateAmmoLabel(type);
+    }
+
 
 }
 

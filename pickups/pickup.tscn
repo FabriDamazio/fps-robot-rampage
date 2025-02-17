@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://br6deohefq6ku"]
+
+[ext_resource type="Script" uid="uid://b1kelvlolfwcr" path="res://pickups/Pickup.cs" id="1_ra232"]
+[ext_resource type="Shader" uid="uid://pgj3ti1atxi3" path="res://pickups/fresnel_aura.tres" id="2_0ketk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ckwn"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1ckwn"]
+radius = 1.0
+
+[sub_resource type="Animation" id="Animation_ra232"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmmoMesh:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.998897),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0.785398, 0, 0.785398), Vector3(0.785398, 6.28319, 0.785398)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i5kuo"]
+_data = {
+&"idle": SubResource("Animation_ra232")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5kuo"]
+render_priority = 0
+shader = ExtResource("2_0ketk")
+
+[sub_resource type="SphereMesh" id="SphereMesh_pbiw3"]
+
+[node name="Pickup" type="Area3D"]
+script = ExtResource("1_ra232")
+
+[node name="AmmoMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.842275, -0.470666, 0.262767, 0.5, 0.5, -0.707107, 0.201427, 0.726962, 0.65647, 0, 0, 0)
+mesh = SubResource("BoxMesh_1ckwn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_1ckwn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_i5kuo")
+}
+autoplay = "idle"
+
+[node name="FresnelAura" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_i5kuo")
+mesh = SubResource("SphereMesh_pbiw3")
