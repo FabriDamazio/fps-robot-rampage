@@ -23,15 +23,20 @@ public partial class HitscanWeapon : Node3D
     [Export]
     public bool Automatic = false;
 
+    [Export]
+    public AmmoType AmmoType;
+
     private Timer _cooldownTimer;
     private Vector3 _weaponPosition;
     private RayCast3D _rayCast3D;
+    private AmmoHandler _ammoHandler;
 
     public override void _Ready()
     {
         _cooldownTimer = GetNode<Timer>("%CooldownTimer");
         _weaponPosition = WeaponMesh.Position;
         _rayCast3D = GetNode<RayCast3D>("%RayCast3D");
+        _ammoHandler = GetNode<AmmoHandler>("%AmmoHandler");
     }
 
     public override void _Process(double delta)
@@ -62,23 +67,28 @@ public partial class HitscanWeapon : Node3D
 
     public void Shoot()
     {
-        MuzzleFlash.Restart();
-
-        _cooldownTimer.Start(1.0f / FireRate);
-        GD.Print("Weapon Fired");
-
-        WeaponMesh.Position =
-          new Vector3(WeaponMesh.Position.X, WeaponMesh.Position.Y, WeaponMesh.Position.Z + Recoil);
-        var collider = _rayCast3D.GetCollider();
-
-        if (collider is Enemy)
+        if (_ammoHandler.HasAmmo(AmmoType))
         {
-            var enemy = collider as Enemy;
-            enemy.SetHitPoints(enemy.HitPoints - WeaponDamage);
+            _ammoHandler.UseAmmo(AmmoType);
+            MuzzleFlash.Restart();
+
+            _cooldownTimer.Start(1.0f / FireRate);
+            GD.Print("Weapon Fired");
+
+            WeaponMesh.Position =
+              new Vector3(WeaponMesh.Position.X, WeaponMesh.Position.Y, WeaponMesh.Position.Z + Recoil);
+            var collider = _rayCast3D.GetCollider();
+
+            if (collider is Enemy)
+            {
+                var enemy = collider as Enemy;
+                enemy.SetHitPoints(enemy.HitPoints - WeaponDamage);
+            }
+
+            var spark = Spark.Instantiate<Node3D>();
+            AddChild(spark);
+            spark.GlobalPosition = _rayCast3D.GetCollisionPoint();
         }
 
-        var spark = Spark.Instantiate<Node3D>();
-        AddChild(spark);
-        spark.GlobalPosition = _rayCast3D.GetCollisionPoint();
     }
 }

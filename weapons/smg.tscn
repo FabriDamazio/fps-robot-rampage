@@ -30,6 +30,7 @@ size = Vector3(0.1, 0.1, 0.1)
 WeaponMesh = NodePath("SMG")
 MuzzleFlash = NodePath("MuzzleFlash")
 Automatic = true
+AmmoType = 1
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_6vhuu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.35, -1.8)
