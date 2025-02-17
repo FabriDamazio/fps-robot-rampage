@@ -26,17 +26,18 @@ public partial class HitscanWeapon : Node3D
     [Export]
     public AmmoType AmmoType;
 
+    public AmmoHandler AmmoHandler;
+
     private Timer _cooldownTimer;
     private Vector3 _weaponPosition;
     private RayCast3D _rayCast3D;
-    private AmmoHandler _ammoHandler;
 
     public override void _Ready()
     {
         _cooldownTimer = GetNode<Timer>("%CooldownTimer");
         _weaponPosition = WeaponMesh.Position;
         _rayCast3D = GetNode<RayCast3D>("%RayCast3D");
-        _ammoHandler = GetNode<AmmoHandler>("%AmmoHandler");
+        AmmoHandler = GetNode<AmmoHandler>("%AmmoHandler");
     }
 
     public override void _Process(double delta)
@@ -67,9 +68,9 @@ public partial class HitscanWeapon : Node3D
 
     public void Shoot()
     {
-        if (_ammoHandler.HasAmmo(AmmoType))
+        if (AmmoHandler.HasAmmo(AmmoType))
         {
-            _ammoHandler.UseAmmo(AmmoType);
+            AmmoHandler.UseAmmo(AmmoType);
             MuzzleFlash.Restart();
 
             _cooldownTimer.Start(1.0f / FireRate);

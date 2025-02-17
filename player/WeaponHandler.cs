@@ -18,12 +18,13 @@ public partial class WeaponHandler : Node3D
     {
         foreach (var child in GetChildren())
         {
-            var weapon = child as Node3D;
+            var weapon = child as HitscanWeapon;
 
             if (weapon == activeWeapon)
             {
                 weapon.Visible = true;
                 weapon.SetProcess(true);
+                weapon.AmmoHandler.UpdateAmmoLabel(weapon.AmmoType);
             }
             else
             {

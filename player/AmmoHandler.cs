@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 public partial class AmmoHandler : Node
 {
-    public Dictionary<AmmoType, int> AmmoStorage = new Dictionary<AmmoType, int>();
+    [Export]
+    public Label AmmoLabel;
+
+    public Dictionary<AmmoType, int> AmmoStorage =
+      new Dictionary<AmmoType, int> {{AmmoType.BULLET, 10}, {AmmoType.SMALL_BULLET, 60}};
 
     public override void _Ready()
     {
-        AmmoStorage.Add(AmmoType.BULLET, 10);
-        AmmoStorage.Add(AmmoType.SMALL_BULLET, 60);
     }
 
     public bool HasAmmo(AmmoType type)
@@ -21,8 +23,14 @@ public partial class AmmoHandler : Node
         if (HasAmmo(type))
         {
             AmmoStorage[type] -= 1;
-            GD.Print(AmmoStorage[type]);
+            UpdateAmmoLabel(type);
         }
+    }
+
+    public void UpdateAmmoLabel(AmmoType type)
+    {
+      GD.Print(type);
+        AmmoLabel.Text = AmmoStorage[type].ToString();
     }
 
 }
