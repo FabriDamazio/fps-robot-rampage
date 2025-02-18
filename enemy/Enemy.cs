@@ -19,13 +19,15 @@ public partial class Enemy : CharacterBody3D
     private Player _player;
     private bool _provoked = false;
     private float _aggroRange = 12.0f;
-    private AnimationPlayer _animationPlayer;
+    private AnimationTree _animationTree;
+    private AnimationNodeStateMachinePlayback _playback;
 
     public override void _Ready()
     {
         _player = GetTree().GetFirstNodeInGroup("player") as Player;
         _navigationAgent3D = GetNode<NavigationAgent3D>("%NavigationAgent3D");
-        _animationPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
+        _animationTree = GetNode<AnimationTree>("%AnimationTree");
+        _playback = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
         HitPoints = MaxHitPoints;
     }
 
@@ -53,7 +55,7 @@ public partial class Enemy : CharacterBody3D
             _provoked = true;
 
         if (_provoked && distance <= AttackRange)
-            _animationPlayer.Play("attack");
+            _playback.Travel("attack");
 
         if (direction != Vector3.Zero)
         {

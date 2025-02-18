@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://0fi6ic7f4g2e"]
+[gd_scene load_steps=14 format=3 uid="uid://0fi6ic7f4g2e"]
 
 [ext_resource type="Script" uid="uid://bfmetdglbuo1u" path="res://enemy/Enemy.cs" id="1_2mvqj"]
 [ext_resource type="PackedScene" uid="uid://bcfdfjtxf6qj3" path="res://enemy/Drone.glb" id="2_ofsxj"]
@@ -74,6 +74,29 @@ _data = {
 &"idle": SubResource("Animation_ppra6")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ofsxj"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ppra6"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p200p"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pmsee"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1wwld"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_y5vj3"]
+states/Start/position = Vector2(233, 100)
+states/attack/node = SubResource("AnimationNodeAnimation_ofsxj")
+states/attack/position = Vector2(633, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_ppra6")
+states/idle/position = Vector2(405, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_p200p"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_pmsee"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_1wwld")]
+
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_2mvqj")
 
@@ -86,7 +109,6 @@ unique_name_in_owner = true
 debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_ppra6")
 }
@@ -94,3 +116,8 @@ autoplay = "idle"
 
 [node name="Drone2" parent="." instance=ExtResource("2_ofsxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+tree_root = SubResource("AnimationNodeStateMachine_y5vj3")
+anim_player = NodePath("../AnimationPlayer")
