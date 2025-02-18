@@ -2,7 +2,8 @@ using Godot;
 
 public partial class Player : CharacterBody3D
 {
-    public const float Speed = 5.0f;
+    [Export]
+    public float Speed = 8.0f;
 
     [Export]
     public float JumpHeight = 1.0f;

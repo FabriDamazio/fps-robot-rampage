@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Robot Rampage"
-run/main_scene="uid://dckl06bgivflg"
+run/main_scene="uid://cfegr2uqibut"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 

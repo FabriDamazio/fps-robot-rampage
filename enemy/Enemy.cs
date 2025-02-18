@@ -3,7 +3,6 @@ using Godot;
 public partial class Enemy : CharacterBody3D
 {
     public const float Speed = 5.0f;
-    public const float JumpVelocity = 4.5f;
 
     [Export]
     public float AttackRange = 1.5f;
