@@ -81,7 +81,6 @@ public partial class Enemy : CharacterBody3D
 
     public void Attack()
     {
-        GD.Print("Enemy Attack");
         _player.SetHitPoints(_player.HitPoints - AttackDamage);
 
     }
