@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cfegr2uqibut"]
+[gd_scene load_steps=14 format=3 uid="uid://cfegr2uqibut"]
 
 [ext_resource type="Material" uid="uid://bdm4giirb2i1i" path="res://levels/materials/gray_material.tres" id="1_ilwad"]
 [ext_resource type="Texture2D" uid="uid://c0miswpa4rko5" path="res://levels/level-floorplan.png" id="2_0vhbo"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://0fi6ic7f4g2e" path="res://enemy/enemy.tscn" id="4_yb8kn"]
 [ext_resource type="PackedScene" uid="uid://c30stmwq1h8c8" path="res://pickups/bullet_pickup.tscn" id="5_43k3a"]
 [ext_resource type="PackedScene" uid="uid://cwsush6bfgmj" path="res://pickups/small_bullet_pickup.tscn" id="6_ttu8v"]
+[ext_resource type="PackedScene" uid="uid://dsk6k20y6ak0x" path="res://hazards/lava.tscn" id="7_43k3a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0vhbo"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -25,6 +26,13 @@ vertices = PackedVector3Array(-11.0648, 0.5, -17.797, -10.5648, 0.5, -16.797, -9
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(1, 3, 0), PackedInt32Array(0, 3, 4), PackedInt32Array(7, 6, 5), PackedInt32Array(4, 3, 8), PackedInt32Array(2, 0, 9), PackedInt32Array(9, 0, 10), PackedInt32Array(8, 7, 4), PackedInt32Array(4, 7, 5), PackedInt32Array(11, 9, 10), PackedInt32Array(11, 10, 6), PackedInt32Array(6, 10, 5), PackedInt32Array(14, 13, 15), PackedInt32Array(15, 13, 12), PackedInt32Array(15, 17, 16), PackedInt32Array(15, 12, 17), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 21), PackedInt32Array(24, 23, 22), PackedInt32Array(22, 23, 21), PackedInt32Array(21, 18, 22), PackedInt32Array(28, 27, 25), PackedInt32Array(25, 27, 26), PackedInt32Array(24, 29, 23), PackedInt32Array(28, 16, 27), PackedInt32Array(27, 16, 17), PackedInt32Array(23, 29, 16), PackedInt32Array(16, 29, 15), PackedInt32Array(33, 32, 30), PackedInt32Array(30, 32, 31), PackedInt32Array(37, 36, 34), PackedInt32Array(34, 36, 35), PackedInt32Array(38, 43, 39), PackedInt32Array(39, 43, 40), PackedInt32Array(40, 43, 41), PackedInt32Array(41, 43, 42), PackedInt32Array(43, 44, 42), PackedInt32Array(41, 45, 40), PackedInt32Array(20, 46, 19), PackedInt32Array(19, 46, 47), PackedInt32Array(38, 39, 48), PackedInt32Array(48, 39, 49), PackedInt32Array(48, 49, 46), PackedInt32Array(46, 49, 47), PackedInt32Array(51, 50, 52), PackedInt32Array(52, 50, 53), PackedInt32Array(55, 54, 56), PackedInt32Array(56, 54, 57), PackedInt32Array(58, 52, 53), PackedInt32Array(62, 63, 59), PackedInt32Array(59, 63, 60), PackedInt32Array(60, 63, 61), PackedInt32Array(64, 56, 57), PackedInt32Array(62, 59, 65), PackedInt32Array(65, 66, 62), PackedInt32Array(62, 66, 55), PackedInt32Array(53, 64, 58), PackedInt32Array(58, 64, 57), PackedInt32Array(54, 55, 66), PackedInt32Array(67, 60, 61), PackedInt32Array(26, 68, 25), PackedInt32Array(25, 68, 69), PackedInt32Array(69, 68, 70), PackedInt32Array(70, 68, 71), PackedInt32Array(61, 73, 67), PackedInt32Array(67, 73, 70), PackedInt32Array(70, 73, 72), PackedInt32Array(70, 72, 69), PackedInt32Array(68, 74, 71), PackedInt32Array(78, 77, 75), PackedInt32Array(75, 77, 76), PackedInt32Array(47, 49, 79), PackedInt32Array(13, 14, 80), PackedInt32Array(80, 14, 81), PackedInt32Array(81, 14, 82), PackedInt32Array(84, 83, 85), PackedInt32Array(85, 83, 86), PackedInt32Array(87, 82, 88), PackedInt32Array(88, 82, 14), PackedInt32Array(89, 86, 83), PackedInt32Array(80, 81, 89), PackedInt32Array(89, 81, 86), PackedInt32Array(88, 90, 87), PackedInt32Array(47, 79, 90), PackedInt32Array(90, 79, 87), PackedInt32Array(96, 45, 41), PackedInt32Array(45, 96, 93), PackedInt32Array(93, 97, 94), PackedInt32Array(94, 92, 91), PackedInt32Array(92, 94, 95), PackedInt32Array(95, 98, 96), PackedInt32Array(96, 97, 93), PackedInt32Array(97, 95, 94), PackedInt32Array(98, 97, 96), PackedInt32Array(95, 97, 98), PackedInt32Array(102, 101, 99), PackedInt32Array(99, 101, 100), PackedInt32Array(106, 105, 103), PackedInt32Array(103, 105, 104), PackedInt32Array(108, 107, 109), PackedInt32Array(109, 107, 110), PackedInt32Array(113, 112, 111), PackedInt32Array(114, 113, 115), PackedInt32Array(115, 113, 111), PackedInt32Array(110, 107, 116), PackedInt32Array(119, 114, 117), PackedInt32Array(117, 114, 118), PackedInt32Array(116, 115, 110), PackedInt32Array(110, 115, 111), PackedInt32Array(113, 114, 119), PackedInt32Array(109, 84, 108), PackedInt32Array(108, 84, 85), PackedInt32Array(123, 122, 120), PackedInt32Array(120, 122, 121), PackedInt32Array(127, 126, 124), PackedInt32Array(124, 126, 125), PackedInt32Array(127, 131, 126), PackedInt32Array(126, 131, 128), PackedInt32Array(128, 131, 129), PackedInt32Array(129, 131, 130), PackedInt32Array(129, 132, 128), PackedInt32Array(131, 133, 130), PackedInt32Array(50, 51, 134), PackedInt32Array(134, 51, 136), PackedInt32Array(134, 136, 135), PackedInt32Array(138, 117, 137), PackedInt32Array(137, 117, 118), PackedInt32Array(141, 140, 139), PackedInt32Array(143, 124, 142), PackedInt32Array(142, 124, 125), PackedInt32Array(144, 134, 135), PackedInt32Array(143, 142, 139), PackedInt32Array(144, 138, 137), PackedInt32Array(143, 139, 135), PackedInt32Array(135, 139, 144), PackedInt32Array(144, 139, 140), PackedInt32Array(144, 140, 138), PackedInt32Array(141, 139, 145), PackedInt32Array(145, 139, 146), PackedInt32Array(147, 145, 148), PackedInt32Array(148, 145, 146)]
 agent_radius = 1.0
 filter_ledge_spans = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ttu8v"]
+resource_local_to_scene = true
+size = Vector2(18, 12)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ggk2x"]
+points = PackedVector3Array(-9, 0, -6, -9, 0, 6, 9, 0, -6, 9, 0, 6)
 
 [node name="MainLevel" type="Node3D"]
 
@@ -243,3 +251,23 @@ use_collision = true
 polygon = PackedVector2Array(0, 0, 8, 3, 8, 0)
 depth = 10.0
 material = ExtResource("1_ilwad")
+
+[node name="LavaPools" type="Node3D" parent="."]
+
+[node name="Lava" parent="LavaPools" instance=ExtResource("7_43k3a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1353, 1.30025, -9.96454)
+
+[node name="MeshInstance3D" parent="LavaPools/Lava" index="0"]
+transform = Transform3D(1.17545, 0, 0, 0, 1, 0, 0, 0, 1.37938, 4.12472, 0, 0.418947)
+mesh = SubResource("PlaneMesh_ttu8v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LavaPools/Lava"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 4.12472, 0, 0.418947)
+shape = SubResource("ConvexPolygonShape3D_ggk2x")
+
+[node name="OmniLight3D" parent="LavaPools/Lava" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1808, 2, 0)
+light_energy = 5.0
+omni_range = 25.0
+
+[editable path="LavaPools/Lava"]
