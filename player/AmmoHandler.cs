@@ -6,6 +6,9 @@ public partial class AmmoHandler : Node
     [Export]
     public Label AmmoLabel;
 
+    [Export]
+    public WeaponHandler WeaponHandler;
+
     public Dictionary<AmmoType, int> AmmoStorage =
       new Dictionary<AmmoType, int> { { AmmoType.BULLET, 10 }, { AmmoType.SMALL_BULLET, 60 } };
 
@@ -29,7 +32,8 @@ public partial class AmmoHandler : Node
 
     public void UpdateAmmoLabel(AmmoType type)
     {
-        AmmoLabel.Text = AmmoStorage[type].ToString();
+        if (WeaponHandler.GetWeaponAmmo() == type)
+            AmmoLabel.Text = AmmoStorage[type].ToString();
     }
 
     public void AddAmmo(AmmoType type, int amount)

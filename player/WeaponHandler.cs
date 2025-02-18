@@ -71,6 +71,12 @@ public partial class WeaponHandler : Node3D
         Equip(GetChild(index) as Node3D);
     }
 
+    public AmmoType GetWeaponAmmo()
+    {
+      var currentWeapon = GetChild(GetCurrentIndex()) as HitscanWeapon;
+      return currentWeapon.AmmoType;
+    }
+
     private int GetCurrentIndex()
     {
         foreach (var index in Enumerable.Range(0, GetChildCount()))

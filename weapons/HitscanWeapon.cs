@@ -74,21 +74,24 @@ public partial class HitscanWeapon : Node3D
             MuzzleFlash.Restart();
 
             _cooldownTimer.Start(1.0f / FireRate);
-            GD.Print("Weapon Fired");
 
             WeaponMesh.Position =
               new Vector3(WeaponMesh.Position.X, WeaponMesh.Position.Y, WeaponMesh.Position.Z + Recoil);
             var collider = _rayCast3D.GetCollider();
 
-            if (collider is Enemy)
+            if (_rayCast3D.IsColliding())
             {
-                var enemy = collider as Enemy;
-                enemy.SetHitPoints(enemy.HitPoints - WeaponDamage);
+                if (collider is Enemy)
+                {
+                    var enemy = collider as Enemy;
+                    enemy.SetHitPoints(enemy.HitPoints - WeaponDamage);
+                }
+
+                var spark = Spark.Instantiate<Node3D>();
+                AddChild(spark);
+                spark.GlobalPosition = _rayCast3D.GetCollisionPoint();
             }
 
-            var spark = Spark.Instantiate<Node3D>();
-            AddChild(spark);
-            spark.GlobalPosition = _rayCast3D.GetCollisionPoint();
         }
 
     }
